@@ -1,0 +1,16 @@
+.coordinate {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.coordinate {
+    -fx-text-fill: white;
+}
+.root {
+    -fx-background-color: #302E2B;
+}
+.chess-board {
+    -fx-background-color: #302E2B;
+    -fx-padding: 10px;
+}

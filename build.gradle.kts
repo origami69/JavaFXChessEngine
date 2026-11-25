@@ -27,23 +27,18 @@ tasks.withType<JavaCompile> {
 
 application {
     mainModule.set("com.example.demo")
-    mainClass.set("com.example.demo.HelloApplication")
+    mainClass.set("com.example.demo.Launcher")
 }
 
 javafx {
-    version = "21.0.6"
+    version = "25.0.2"
     modules = listOf("javafx.controls", "javafx.fxml")
 }
 
 dependencies {
     implementation("org.controlsfx:controlsfx:11.2.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
 
 jlink {
     imageZip.set(layout.buildDirectory.file("/distributions/app-${javafx.platform.classifier}.zip"))
