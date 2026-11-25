@@ -37,7 +37,8 @@ public class Tile extends StackPane {
         pieceView.fitWidthProperty().bind(widthProperty().multiply(0.85));
         pieceView.fitHeightProperty().bind(heightProperty().multiply(0.85));
 
-        pieceView.setMouseTransparent(true);
+        pieceView.getStyleClass().add("chess-piece");
+        pieceView.setMouseTransparent(false);
 
         getChildren().addAll(background, pieceView);
     }
