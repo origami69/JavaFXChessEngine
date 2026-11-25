@@ -1,59 +1,64 @@
-package com.example.demo;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
+package com.example.demo;
+
+import java.awt.*;
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
-public class Tile extends StackPane {
+public class Tile {
 
     private final int row;
     private final int col;
+    private Piece piece;
 
-    private final ImageView pieceView = new ImageView();
+    private static final Color LIGHT = new Color(0xF0D9B5);
+    private static final Color DARK = new Color(0xB58863);
 
-    private static final Color LIGHT = Color.web("#F0D9B5");
-    private static final Color DARK = Color.web("#B58863");
+    private static final Map<String, Image> images = new HashMap<>();
 
     public Tile(int row, int col) {
         this.row = row;
         this.col = col;
-
-        Rectangle background = new Rectangle();
-        background.setFill((row + col) % 2 == 0 ? LIGHT : DARK);
-
-        background.widthProperty().bind(widthProperty());
-        background.heightProperty().bind(heightProperty());
-
-        setPrefSize(80, 80);
-        setMinSize(0, 0);
-
-        background.widthProperty().bind(widthProperty());
-        background.heightProperty().bind(heightProperty());
-
-        pieceView.setPreserveRatio(true);
-        pieceView.fitWidthProperty().bind(widthProperty().multiply(0.85));
-        pieceView.fitHeightProperty().bind(heightProperty().multiply(0.85));
-
-        pieceView.getStyleClass().add("chess-piece");
-        pieceView.setMouseTransparent(false);
-
-        getChildren().addAll(background, pieceView);
     }
 
-    public void setPiece(String imagePath) {
-        Image image = new Image(
-                Objects.requireNonNull(
-                        getClass().getResourceAsStream(imagePath)
-                )
-        );
-        pieceView.setImage(image);
+    public void draw(Graphics2D g, int x, int y, int size) {
+        // Draw background
+        g.setColor((row + col) % 2 == 0 ? LIGHT : DARK);
+        g.fillRect(x, y, size, size);
+
+        // Draw piece
+        if (piece != null) {
+            Image image = getImage(piece);
+
+            int imageSize = (int) (size * 0.85);
+            int padding = (size - imageSize) / 2;
+
+            g.drawImage(image,
+                    x + padding, y + padding,
+                    imageSize, imageSize, null);
+        }
+    }
+
+    public static Image getImage(Piece piece) {
+        return images.computeIfAbsent(
+                piece.getAsset(),
+                path -> new ImageIcon(Objects.requireNonNull(
+                        Tile.class.getResource(path),
+                        "Missing piece image: " + path)).getImage());
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public Piece getPiece() {
+        return piece;
     }
 
     public void removePiece() {
-        pieceView.setImage(null);
+        piece = null;
     }
 
     public int getRow() {

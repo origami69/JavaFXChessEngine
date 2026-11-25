@@ -26,7 +26,7 @@ tasks.withType<JavaCompile> {
 
 application {
     mainModule.set("com.example.demo")
-    mainClass.set("com.example.demo.Launcher")
+    mainClass.set("com.example.demo.Main")
 }
 
 javafx {
