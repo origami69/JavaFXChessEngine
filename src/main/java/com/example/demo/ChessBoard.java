@@ -13,8 +13,8 @@ public class ChessBoard extends GridPane {
 
     private static final int SIZE = 8;
     private final Tile[][] tiles = new Tile[SIZE][SIZE];
-    Queue<Piece> whitePieces = new ArrayDeque<Piece>(64);
-    Queue<Piece> blackPieces = new ArrayDeque<Piece>(64);
+    Queue<Piece> whitePieces = new ArrayDeque<Piece>(32);
+    Queue<Piece> blackPieces = new ArrayDeque<Piece>(32);
     public ChessBoard() {
         for(int i = 0; i < 8; i++){
             whitePieces.add(new Piece(i, 6, "/com/example/demo/pieceAssets/wP.png"));
