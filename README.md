@@ -1,6 +1,11 @@
 # JavaFXChessEngine
 We’re making a chess engine and using javaFX as the GUI
 
+build:
+
+./gradlew javaToolchains
+
+
 In order to run use:
 
 .\gradlew run
